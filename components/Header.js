@@ -1,10 +1,6 @@
 import Link from 'next/link';
-import Head from 'next/head';
 const Header = () => (
   <div>
-    <Head>
-      <title>CivicsAid</title>
-    </Head>
     <header>
       <div className="container">
         <h1 className="logo">
