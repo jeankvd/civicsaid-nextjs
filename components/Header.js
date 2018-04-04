@@ -2,10 +2,13 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 const HeaderNav = styled.header`
-  background: #e54b4b;
-  color: #ebebd3;
+  background: #fff;
+  color: #2f94f1;
   padding: 2em 0;
   position: relative;
+  -webkit-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
+  box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
   &:hover {
     content: '';
     clear: both;
@@ -21,7 +24,7 @@ const Container = styled.div`
 
 const Logo = styled.h1`
   float: left;
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -50,7 +53,7 @@ const SiteNav = styled.nav`
   }
 
   a {
-    color: #ebebd3;
+    color: #2f94f1;
     display: block;
     padding: 2em 4em 2em 1.5em;
     text-transform: uppercase;
@@ -63,7 +66,7 @@ const SiteNav = styled.nav`
     color: #464655;
   }
 
-  @media (min-width: 700px) {
+  @media (min-width: 711px) {
     height: auto;
     position: relative;
     background: transparent;
@@ -96,13 +99,34 @@ const MenuToggle = styled.div`
 `;
 
 const Hamburger = styled.div`
-  content: '';
-  display: block;
-  background: #ebebd3;
-  height: 3px;
-  width: 1.75em;
-  border-radius: 3px;
-  transition: all ease-in-out 500ms;
+  @media (max-width: 711px) {
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      background: #2f94f1;
+      height: 3px;
+      width: 1.75em;
+      border-radius: 3px;
+      transition: all ease-in-out 500ms;
+    }
+
+    content: '';
+    display: block;
+    background: #2f94f1;
+    height: 3px;
+    width: 1.75em;
+    border-radius: 3px;
+    transition: all ease-in-out 500ms;
+
+    &:before {
+      transform: translateY(-6px);
+    }
+
+    &:after {
+      transform: translateY(3px);
+    }
+  }
 `;
 
 const Header = () => (
