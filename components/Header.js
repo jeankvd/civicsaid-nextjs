@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
+import { compose, withHandlers, withState } from 'recompose';
 import styled from 'styled-components';
 
 const HeaderNav = styled.header`
@@ -39,8 +41,9 @@ const SiteNav = styled.nav`
   top: 100%;
   right: 0%;
   background: #464655;
-  // clip-path: circle(0px at top right);
-  // transition: clip-path ease-in-out 700ms;
+  clip-path: ${props =>
+    props.clicked ? 'circle(250% at top right)' : 'circle(0px at top right)'};
+  transition: clip-path ease-in-out 700ms;
 
   ul {
     margin: 0;
@@ -109,6 +112,7 @@ const Hamburger = styled.div`
       width: 1.75em;
       border-radius: 3px;
       transition: all ease-in-out 500ms;
+      transform: ${props => (props.clicked ? 'rotate(45deg)' : '')};
     }
 
     content: '';
@@ -118,25 +122,28 @@ const Hamburger = styled.div`
     width: 1.75em;
     border-radius: 3px;
     transition: all ease-in-out 500ms;
+    transform: ${props => (props.clicked ? 'rotate(45deg)' : '')};
 
     &:before {
       transform: translateY(-6px);
+      opacity: ${props => (props.clicked ? '0' : '')};
     }
 
     &:after {
-      transform: translateY(3px);
+      transform: ${props =>
+        props.clicked ? 'translateY(-3px) rotate(-90deg)' : 'translateY(3px)'};
     }
   }
 `;
 
-const Header = () => (
+const Header = ({ selected, handleMenuClick }) => (
   <HeaderNav>
     <Container>
       <Logo>
         CIVICS<span>AID</span>
       </Logo>
 
-      <SiteNav>
+      <SiteNav clicked={selected}>
         <ul>
           <li>
             <a href="/">
@@ -166,11 +173,25 @@ const Header = () => (
         </ul>
       </SiteNav>
 
-      <MenuToggle>
-        <Hamburger />
+      <MenuToggle onClick={handleMenuClick}>
+        <Hamburger clicked={selected} />
       </MenuToggle>
     </Container>
   </HeaderNav>
 );
 
-export default Header;
+Header.propTypes = {
+  handleMenuClick: PropTypes.func,
+  selected: PropTypes.bool,
+};
+
+const enhancedHeader = compose(
+  withState('selected', 'setSelected', false),
+  withHandlers({
+    handleMenuClick: ({ selected, setSelected }) => () => {
+      setSelected(!selected);
+    },
+  }),
+)(Header);
+
+export default enhancedHeader;
