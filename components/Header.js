@@ -148,29 +148,19 @@ const Header = ({ selected, handleMenuClick }) => (
       <SiteNav clicked={selected}>
         <ul>
           <li>
-            <a href="/">
-              <i className="fa fa-home site-nav--icon" />Home
-            </a>
+            <a href="/">Home</a>
           </li>
           <li>
-            <a href="/about">
-              <i className="fa fa-info site-nav--icon" />About
-            </a>
+            <a href="/about">About</a>
           </li>
           <li>
-            <a href="/questions">
-              <i className="fa fa-pencil site-nav--icon" />Questions
-            </a>
+            <a href="/questions">Questions</a>
           </li>
           <li>
-            <a href="/vocabulary">
-              <i className="fa fa-usd site-nav--icon" />Vocabulary
-            </a>
+            <a href="/vocabulary">Vocabulary</a>
           </li>
           <li>
-            <a href="/info">
-              <i className="fa fa-envelope site-nav--icon" />Info
-            </a>
+            <a href="/info">Info</a>
           </li>
         </ul>
       </SiteNav>
