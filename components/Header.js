@@ -7,6 +7,7 @@ const HeaderNav = styled.header`
   background: #fff;
   color: #2f94f1;
   padding: 2em 0;
+  line-height: 4px;
   position: relative;
   -webkit-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
   -moz-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
@@ -24,9 +25,10 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Logo = styled.h1`
+const Logo = styled.div`
   float: left;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  line-height: 4px;
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
@@ -69,7 +71,7 @@ const SiteNav = styled.nav`
     color: #464655;
   }
 
-  @media (min-width: 711px) {
+  @media (min-width: 734px) {
     height: auto;
     position: relative;
     background: transparent;
@@ -94,7 +96,7 @@ const SiteNav = styled.nav`
 `;
 
 const MenuToggle = styled.div`
-  padding: 1em;
+  padding: 1.5em;
   position: absolute;
   top: 0.5em;
   right: 0.5em;
@@ -102,7 +104,7 @@ const MenuToggle = styled.div`
 `;
 
 const Hamburger = styled.div`
-  @media (max-width: 711px) {
+  @media (max-width: 733px) {
     &:before,
     &:after {
       content: '';

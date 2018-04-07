@@ -4,6 +4,7 @@ import { ServerStyleSheet, injectGlobal } from 'styled-components';
 injectGlobal`
   body {
     background: #2f94f1;
+    font-family: 'Quicksand', Times;
   }
 `;
 
@@ -22,6 +23,10 @@ export default class MyCustomDocument extends Document {
       <html>
         <Head>
           <title>CivicsAid</title>
+          <link
+            href="https://fonts.googleapis.com/css?family=Quicksand"
+            rel="stylesheet"
+          />
           {this.props.styleTags}
         </Head>
         <body>
