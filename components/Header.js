@@ -138,7 +138,7 @@ const Hamburger = styled.div`
   }
 `;
 
-const Header = ({ selected, handleMenuClick }) => (
+const Header = ({ selected, dropDownSelected, handleMenuClick }) => (
   <HeaderNav>
     <Container>
       <Logo>
@@ -160,7 +160,7 @@ const Header = ({ selected, handleMenuClick }) => (
             <a href="/vocabulary">Vocabulary</a>
           </li>
           <li>
-            <a href="/info">Info</a>
+            <a href="/info">Local Info</a>
           </li>
         </ul>
       </SiteNav>
