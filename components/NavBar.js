@@ -18,7 +18,8 @@ const Wrapper = styled.div`
     border-bottom: 1px solid #575766;
   }
 
-  .link {
+  .link,
+  .language-link {
     color: #2f94f1;
     display: block;
     padding: 2em 1.5em 2em 1.5em;
@@ -30,6 +31,12 @@ const Wrapper = styled.div`
   .link:focus {
     background: #e4b363;
     color: #464655;
+  }
+
+  .language-link:hover,
+  .language-link:focus {
+    background: #f1582fe6;
+    color: #fff;
   }
 
   @media (max-width: 734px) {
@@ -46,7 +53,7 @@ const SubHeader = styled.div`
   border-bottom: 1px solid #575766;
 `;
 
-const SiderBar = () => (
+const NavBar = () => (
   <Wrapper>
     <ul>
       <li>
@@ -62,8 +69,18 @@ const SiderBar = () => (
       <li>
         <div className="link">Integrated Civics</div>
       </li>
+      <li>
+        <SubHeader>Language</SubHeader>
+        <div className="language-link">English</div>
+      </li>
+      <li>
+        <div className="language-link">Spanish</div>
+      </li>
+      <li>
+        <div className="language-link">Chinese</div>
+      </li>
     </ul>
   </Wrapper>
 );
 
-export default SiderBar;
+export default NavBar;
