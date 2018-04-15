@@ -33,22 +33,19 @@ const query = gql`
 
 const QuestionList = ({ questions }) =>
   questions.map(question => (
-    <Card category={question.category}>
+    <Card category={question.category} key={question.id}>
       <Question>{question.q_english}</Question>
     </Card>
   ));
 
-const Questions = ({ data: { questions } }) => {
-  console.warn(`questions -> ${JSON.stringify(questions, null, 2)}`);
-  return (
-    <Layout>
-      <NavBar />
-      <Wrapper>
-        <QuestionList questions={questions} />
-      </Wrapper>
-    </Layout>
-  );
-};
+const Questions = ({ data: { questions } }) => (
+  <Layout>
+    <NavBar />
+    <Wrapper>
+      <QuestionList questions={questions} />
+    </Wrapper>
+  </Layout>
+);
 
 const EnhancedQuestions = graphql(query)(Questions);
 
