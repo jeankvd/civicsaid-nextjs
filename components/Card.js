@@ -4,7 +4,7 @@ const Wrapper = styled.div`
   width: 90%;
   height: 25%;
   background-color: #fff;
-  margin-top: 0.5em;
+  margin-top: 1.5em;
   -webkit-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
   -moz-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
   box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);

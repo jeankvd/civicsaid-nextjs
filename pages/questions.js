@@ -6,16 +6,16 @@ import { graphql } from 'react-apollo';
 import withData from '../apollo/withData';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   grid-template-area: content;
 `;
 
-const Question = styled.div`
+export const Question = styled.div`
   color: #2f94f1;
   font-size: 1.2em;
   font-weight: heavy;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 15px 40px;
+  cursor: pointer;
 `;
 
 const query = gql`
@@ -33,7 +33,10 @@ const query = gql`
 
 const QuestionList = ({ questions }) =>
   questions.map(question => (
-    <Card category={question.category} key={question.id}>
+    <Card
+      category={`${question.category}: ${question.subcategory}`}
+      key={question.id}
+    >
       <Question>{question.q_english}</Question>
     </Card>
   ));
