@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const query = gql`
   {
-    question(where: { id: "cjg1jl6qybmpi0a2416ras59l" }) {
+    question(where: { id: ${qid} }) {
       q_english
       q_spanish
       q_chinese
@@ -52,6 +52,12 @@ const FlashCard = ({
   );
 };
 
-const EnhancedFlashCard = graphql(query)(FlashCard);
+const EnhancedFlashCard = graphql(query, {
+  options: ({
+    url: {
+      query: { qid },
+    },
+  }) => ({ variables: { qid } }),
+})(FlashCard);
 
 export default withData(EnhancedFlashCard);
