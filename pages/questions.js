@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import withData from '../apollo/withData';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -32,12 +33,17 @@ const query = gql`
 `;
 
 const QuestionList = ({ questions }) =>
-  questions.map(question => (
+  questions.map((question, index) => (
     <Card
       category={`${question.category}: ${question.subcategory}`}
       key={question.id}
     >
-      <Question>{question.q_english}</Question>
+      <Link
+        as={`/flashcard/${index + 1}`}
+        href={{ pathname: 'flashcard', query: { qid: `${question.id}` } }}
+      >
+        <Question>{question.q_english}</Question>
+      </Link>
     </Card>
   ));
 

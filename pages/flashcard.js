@@ -5,6 +5,7 @@ import { Wrapper, Question } from './questions';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import withData from '../apollo/withData';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 const query = gql`
@@ -33,15 +34,23 @@ const QuestionCard = ({ question }) => (
   </Card>
 );
 
-const FlashCard = ({ data: { question, answers } }) => (
-  <Layout>
-    <NavBar />
-    <Wrapper>
-      <QuestionCard question={question} />
-      <AnswerCard answers={answers} />
-    </Wrapper>
-  </Layout>
-);
+const FlashCard = ({
+  data: { question, answers },
+  url: {
+    query: { qid },
+  },
+}) => {
+  console.warn(`queryid -> ${JSON.stringify(qid, null, 2)}`);
+  return (
+    <Layout>
+      <NavBar />
+      <Wrapper>
+        <QuestionCard question={question} />
+        {/* <AnswerCard answers={answers} /> */}
+      </Wrapper>
+    </Layout>
+  );
+};
 
 const EnhancedFlashCard = graphql(query)(FlashCard);
 
