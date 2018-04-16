@@ -9,13 +9,17 @@ import styled from 'styled-components';
 
 const query = gql`
   {
-    questions {
-      id
+    question(where: { id: "cjg1jl6qybmpi0a2416ras59l" }) {
       q_english
       q_spanish
       q_chinese
       category
       subcategory
+      answers {
+        a_english
+        a_spanish
+        a_chinese
+      }
     }
   }
 `;
