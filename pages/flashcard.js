@@ -3,14 +3,14 @@ import NavBar from '../components/NavBar';
 import Card from '../components/Card';
 import { Wrapper, Question } from './questions';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const query = gql`
+const QUESTION_QUERY = gql`
   {
-    question(where: { id: ${qid} }) {
+    question(where: { id: $id }) {
       q_english
       q_spanish
       q_chinese
@@ -34,8 +34,26 @@ const QuestionCard = ({ question }) => (
   </Card>
 );
 
+// const QuestionCard = ({ questionId }) => (
+//   <Query query={QUESTION_QUERY} variables={{ id: questionId }}>
+//     {({ loading, error, data }) => {
+//       if (loading) return null;
+//       if (error) return `Error!: ${error}`;
+
+//       return (
+//         <Card
+//           category={`${data.question.category}: ${data.question.subcategory}`}
+//           key={data.question.id}
+//         >
+//           <Question>{data.question.q_english}</Question>
+//         </Card>
+//       );
+//     }}
+//   </Query>
+// );
+
 const FlashCard = ({
-  data: { question, answers },
+  // data: { question, answers },
   url: {
     query: { qid },
   },
@@ -45,19 +63,14 @@ const FlashCard = ({
     <Layout>
       <NavBar />
       <Wrapper>
-        <QuestionCard question={question} />
+        <QuestionCard questionId={qid} />
+        {/* <QuestionCard question={question} questionId={qid} /> */}
         {/* <AnswerCard answers={answers} /> */}
       </Wrapper>
     </Layout>
   );
 };
 
-const EnhancedFlashCard = graphql(query, {
-  options: ({
-    url: {
-      query: { qid },
-    },
-  }) => ({ variables: { qid } }),
-})(FlashCard);
+const EnhancedFlashCard = graphql(query)(FlashCard);
 
 export default withData(EnhancedFlashCard);
