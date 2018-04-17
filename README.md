@@ -1,6 +1,6 @@
 # CivicsAid
 
-A study aid web app to help in preparation for individuals looking to gain citizenship via the naturializaiton exam.
+A study aid web app to help in preparation for individuals looking to gain citizenship via the naturalization exam.
 
 ## Built With
 
