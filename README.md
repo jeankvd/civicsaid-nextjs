@@ -1,6 +1,17 @@
 # CivicsAid
 
 A study aid web app to help in preparation for individuals looking to gain citizenship via the naturalization exam.
+Current.
+
+_Current languages supported for all questions and answers in the app:_
+* English
+* Spanish
+* Mandarin
+
+## Database is running on a prisma cluster
+
+Message me on the orlando dev's slack for the gql api to place in your `.env` file.
+Once you you've put in the `uri` key in `/apollo/initApollo.js` you'll instantly have access to the DB.
 
 ## Built With
 
