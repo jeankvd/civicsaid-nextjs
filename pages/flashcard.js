@@ -1,16 +1,63 @@
 import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
 import Card from '../components/Card';
-import { Wrapper, Question } from './questions';
+import { Content, CardText } from './questions';
 import gql from 'graphql-tag';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const QUESTION_QUERY = gql`
-  {
-    question(where: { id: $id }) {
+const QuestionCard = ({ question }) => (
+  <Card category={`${question.category}: ${question.subcategory}`}>
+    <CardText>{question.q_english}</CardText>
+  </Card>
+);
+
+const AnswerCard = ({ answers, category, subcategory }) => {
+  console.warn(`answer props -> ${JSON.stringify(answers, null, 2)}`);
+  return (
+    <Card category={`${category}: ${subcategory}`}>
+      <CardText>
+        {answers.map((answer, i) => (
+          <div key={i}>
+            <li>{answer.a_english}</li>
+          </div>
+        ))}
+      </CardText>
+    </Card>
+  );
+};
+
+const FlashCard = ({
+  url: {
+    query: { qid },
+  },
+}) => (
+  <Query query={QUESTIONS_QUERY} variables={{ qid }}>
+    {({ loading, error, data: { question } }) => {
+      if (loading) return null;
+      if (error) return `Error!: ${error}`;
+      return (
+        <Layout>
+          <NavBar />
+          <Content>
+            <QuestionCard question={question} />
+            <AnswerCard
+              answers={question.answers}
+              category={question.category}
+              subcategory={question.subcategory}
+            />
+          </Content>
+        </Layout>
+      );
+    }}
+  </Query>
+);
+
+const QUESTIONS_QUERY = gql`
+  query question($qid: ID) {
+    question(where: { id: $qid }) {
       q_english
       q_spanish
       q_chinese
@@ -25,52 +72,4 @@ const QUESTION_QUERY = gql`
   }
 `;
 
-const QuestionCard = ({ question }) => (
-  <Card
-    category={`${question.category}: ${question.subcategory}`}
-    key={question.id}
-  >
-    <Question>{question.q_english}</Question>
-  </Card>
-);
-
-// const QuestionCard = ({ questionId }) => (
-//   <Query query={QUESTION_QUERY} variables={{ id: questionId }}>
-//     {({ loading, error, data }) => {
-//       if (loading) return null;
-//       if (error) return `Error!: ${error}`;
-
-//       return (
-//         <Card
-//           category={`${data.question.category}: ${data.question.subcategory}`}
-//           key={data.question.id}
-//         >
-//           <Question>{data.question.q_english}</Question>
-//         </Card>
-//       );
-//     }}
-//   </Query>
-// );
-
-const FlashCard = ({
-  // data: { question, answers },
-  url: {
-    query: { qid },
-  },
-}) => {
-  console.warn(`queryid -> ${JSON.stringify(qid, null, 2)}`);
-  return (
-    <Layout>
-      <NavBar />
-      <Wrapper>
-        <QuestionCard questionId={qid} />
-        {/* <QuestionCard question={question} questionId={qid} /> */}
-        {/* <AnswerCard answers={answers} /> */}
-      </Wrapper>
-    </Layout>
-  );
-};
-
-const EnhancedFlashCard = graphql(query)(FlashCard);
-
-export default withData(EnhancedFlashCard);
+export default withData(FlashCard);
