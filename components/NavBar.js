@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   transition: all 0.3s ease-in;
   margin-top: 0.5em;
   width: 15em;
-  height: 100vh;
+  height: 100%;
 
   ul {
     margin: 0;

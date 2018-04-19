@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 90%;
-  height: 25%;
+  height: auto;
   background-color: #fff;
   margin-top: 1.5em;
   -webkit-box-shadow: 9px 11px 5px -3px rgba(0, 0, 0, 0.26);
