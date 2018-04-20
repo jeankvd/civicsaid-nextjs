@@ -15,8 +15,7 @@ function create(initialState) {
     connectToDevTools: process.browser,
     ssrMode: !process.browser, // Disables forceFetch on the server (so queries are only run once)
     link: new HttpLink({
-      uri:
-        'https://us1.prisma.sh/public-fategrasp-849/civicsaid-prisma-service/dev', // Server URL (must be absolute)
+      uri: `${process.env.PRISMA_API}`, // Server URL (must be absolute)
       credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache().restore(initialState || {}),
