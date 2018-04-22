@@ -1,4 +1,6 @@
+import React from 'react';
 import styled from 'styled-components';
+import { Provider } from './LanguageContext';
 
 const Wrapper = styled.div`
   grid-template-area: sidebar;
@@ -53,34 +55,64 @@ const SubHeader = styled.div`
   border-bottom: 1px solid #575766;
 `;
 
-const NavBar = () => (
-  <Wrapper>
-    <ul>
-      <li>
-        <div className="link">All Questions</div>
-      </li>
-      <li>
-        <SubHeader>Categories</SubHeader>
-        <div className="link">American Government</div>
-      </li>
-      <li>
-        <div className="link">American History</div>
-      </li>
-      <li>
-        <div className="link">Integrated Civics</div>
-      </li>
-      <li>
-        <SubHeader>Language</SubHeader>
-        <div className="language-link">English</div>
-      </li>
-      <li>
-        <div className="language-link">Spanish</div>
-      </li>
-      <li>
-        <div className="language-link">Chinese</div>
-      </li>
-    </ul>
-  </Wrapper>
-);
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      language: 'english',
+    };
+  }
+
+  handleLanguage = value => this.setState({ language: `${value}` });
+
+  render() {
+    return (
+      <Provider value={this.state.language}>
+        <Wrapper>
+          <ul>
+            <li>
+              <div className="link">All Questions</div>
+            </li>
+            <li>
+              <SubHeader>Categories</SubHeader>
+              <div className="link">American Government</div>
+            </li>
+            <li>
+              <div className="link">American History</div>
+            </li>
+            <li>
+              <div className="link">Integrated Civics</div>
+            </li>
+            <li>
+              <SubHeader>Language</SubHeader>
+              <div
+                className="language-link"
+                onClick={() => this.handleLanguage('english')}
+              >
+                English
+              </div>
+            </li>
+            <li>
+              <div
+                className="language-link"
+                onClick={() => this.handleLanguage('spanish')}
+              >
+                Spanish
+              </div>
+            </li>
+            <li>
+              <div
+                className="language-link"
+                onClick={() => this.handleLanguage('chinese')}
+              >
+                Chinese
+              </div>
+            </li>
+          </ul>
+        </Wrapper>
+      </Provider>
+    );
+  }
+}
 
 export default NavBar;

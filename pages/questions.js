@@ -2,10 +2,12 @@ import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
 import Card from '../components/Card';
 import gql from 'graphql-tag';
+import { compose } from 'recompose';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
 import Link from 'next/link';
 import styled from 'styled-components';
+import withLanguage from '../components/withLanguage';
 
 export const Content = styled.div`
   grid-template-area: content;
@@ -34,23 +36,26 @@ const QuestionList = ({ questions }) =>
     </Card>
   ));
 
-const Questions = () => (
-  <Query query={QESTION_QUERY}>
-    {({ loading, error, data }) => {
-      if (loading) return null;
-      if (error) return `Error!: ${error}`;
+const Questions = ({ language }) => {
+  console.warn(`consumer language: ${language}`);
+  return (
+    <Query query={QESTION_QUERY}>
+      {({ loading, error, data }) => {
+        if (loading) return null;
+        if (error) return `Error!: ${error}`;
 
-      return (
-        <Layout>
-          <NavBar />
-          <Content>
-            <QuestionList questions={data.questions} />
-          </Content>
-        </Layout>
-      );
-    }}
-  </Query>
-);
+        return (
+          <Layout>
+            <NavBar />
+            <Content>
+              <QuestionList questions={data.questions} />
+            </Content>
+          </Layout>
+        );
+      }}
+    </Query>
+  );
+};
 
 const QESTION_QUERY = gql`
   {
@@ -65,4 +70,4 @@ const QESTION_QUERY = gql`
   }
 `;
 
-export default withData(Questions);
+export default compose(withData, withLanguage)(Questions);
