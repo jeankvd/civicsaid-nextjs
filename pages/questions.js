@@ -31,7 +31,13 @@ const QuestionList = ({ questions, language }) =>
         as={`/flashcard/${index + 1}`}
         href={{ pathname: 'flashcard', query: { qid: `${question.id}` } }}
       >
-        <CardText>{question.q_english}</CardText>
+        <CardText>
+          {language === 'english'
+            ? question.q_english
+            : language === 'spanish'
+              ? question.q_spanish
+              : question.q_chinese}
+        </CardText>
       </Link>
     </Card>
   ));
