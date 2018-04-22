@@ -9,7 +9,7 @@ const Grid = styled.div`
   grid-template-areas: 'sidebar' 'content';
 `;
 
-export class Layout extends React.Component {
+class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,10 +21,8 @@ export class Layout extends React.Component {
   render() {
     return (
       <Provider value={this.state}>
-        <div>
-          <Header />
-          <Grid>{this.props.children}</Grid>
-        </div>
+        <Header />
+        <Grid>{this.props.children}</Grid>
       </Provider>
     );
   }

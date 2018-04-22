@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import withLanguage from './withLanguage';
 
@@ -55,7 +54,7 @@ const SubHeader = styled.div`
   border-bottom: 1px solid #575766;
 `;
 
-const NavBar = ({ selectLanguage }) => (
+const SideBar = ({ selectLanguage }) => (
   <Wrapper>
     <ul>
       <li>
@@ -100,4 +99,4 @@ const NavBar = ({ selectLanguage }) => (
   </Wrapper>
 );
 
-export default withLanguage(NavBar);
+export default withLanguage(SideBar);

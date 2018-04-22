@@ -1,33 +1,47 @@
 import Layout from '../components/Layout';
-import NavBar from '../components/NavBar';
+import SideBar from '../components/SideBar';
 import Card from '../components/Card';
 import { Content, CardText } from './questions';
 import gql from 'graphql-tag';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
+import withLanguage from '../components/withLanguage';
 import Link from 'next/link';
 import styled from 'styled-components';
 
-const QuestionCard = ({ question }) => (
+const QuestionCard = ({ question, language }) => (
   <Card category={`${question.category}: ${question.subcategory}`}>
-    <CardText>{question.q_english}</CardText>
+    <CardText>
+      {language === 'english'
+        ? question.q_english
+        : language === 'spanish'
+          ? question.q_spanish
+          : question.q_chinese}
+    </CardText>
   </Card>
 );
 
-const AnswerCard = ({ answers, category, subcategory }) => {
-  console.warn(`answer props -> ${JSON.stringify(answers, null, 2)}`);
-  return (
-    <Card category={`${category}: ${subcategory}`}>
-      <CardText>
-        {answers.map((answer, i) => (
-          <div key={i}>
-            <li>{answer.a_english}</li>
-          </div>
-        ))}
-      </CardText>
-    </Card>
-  );
-};
+const QuestionConsumer = withLanguage(QuestionCard);
+
+const AnswerCard = ({ answers, category, subcategory, language }) => (
+  <Card category={`${category}: ${subcategory}`}>
+    <CardText>
+      {answers.map((answer, i) => (
+        <div key={i}>
+          <li>
+            {language === 'english'
+              ? answer.a_english
+              : language === 'spanish'
+                ? answer.a_spanish
+                : answer.a_chinese}
+          </li>
+        </div>
+      ))}
+    </CardText>
+  </Card>
+);
+
+const AnswerConsumer = withLanguage(AnswerCard);
 
 const FlashCard = ({
   url: {
@@ -40,10 +54,10 @@ const FlashCard = ({
       if (error) return `Error!: ${error}`;
       return (
         <Layout>
-          <NavBar />
+          <SideBar />
           <Content>
-            <QuestionCard question={question} />
-            <AnswerCard
+            <QuestionConsumer question={question} />
+            <AnswerConsumer
               answers={question.answers}
               category={question.category}
               subcategory={question.subcategory}

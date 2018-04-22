@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import NavBar from '../components/NavBar';
+import SideBar from '../components/SideBar';
 import Card from '../components/Card';
 import gql from 'graphql-tag';
 import { compose } from 'recompose';
@@ -52,7 +52,7 @@ const Questions = () => (
 
       return (
         <Layout>
-          <NavBar />
+          <SideBar />
           <Content>
             <QuestionsConsumer questions={data.questions} />
           </Content>
