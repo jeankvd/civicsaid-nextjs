@@ -1,5 +1,6 @@
 import Header from './Header';
 import styled from 'styled-components';
+import { Provider } from './LanguageContext';
 
 const Grid = styled.div`
   display: grid;
@@ -8,11 +9,25 @@ const Grid = styled.div`
   grid-template-areas: 'sidebar' 'content';
 `;
 
-const Layout = props => (
-  <div>
-    <Header />
-    <Grid>{props.children}</Grid>
-  </div>
-);
+export class Layout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      language: 'english',
+      selectLanguage: value => this.setState({ language: `${value}` }),
+    };
+  }
+
+  render() {
+    return (
+      <Provider value={this.state}>
+        <div>
+          <Header />
+          <Grid>{this.props.children}</Grid>
+        </div>
+      </Provider>
+    );
+  }
+}
 
 export default Layout;

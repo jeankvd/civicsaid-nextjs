@@ -1,4 +1,6 @@
+import React from 'react';
 import styled from 'styled-components';
+import withLanguage from './withLanguage';
 
 const Wrapper = styled.div`
   grid-template-area: sidebar;
@@ -53,7 +55,7 @@ const SubHeader = styled.div`
   border-bottom: 1px solid #575766;
 `;
 
-const NavBar = () => (
+const NavBar = ({ selectLanguage }) => (
   <Wrapper>
     <ul>
       <li>
@@ -71,16 +73,31 @@ const NavBar = () => (
       </li>
       <li>
         <SubHeader>Language</SubHeader>
-        <div className="language-link">English</div>
+        <div
+          className="language-link"
+          onClick={() => selectLanguage('english')}
+        >
+          English
+        </div>
       </li>
       <li>
-        <div className="language-link">Spanish</div>
+        <div
+          className="language-link"
+          onClick={() => selectLanguage('spanish')}
+        >
+          Spanish
+        </div>
       </li>
       <li>
-        <div className="language-link">Chinese</div>
+        <div
+          className="language-link"
+          onClick={() => selectLanguage('chinese')}
+        >
+          Chinese
+        </div>
       </li>
     </ul>
   </Wrapper>
 );
 
-export default NavBar;
+export default withLanguage(NavBar);

@@ -2,10 +2,12 @@ import Layout from '../components/Layout';
 import NavBar from '../components/NavBar';
 import Card from '../components/Card';
 import gql from 'graphql-tag';
+import { compose } from 'recompose';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
 import Link from 'next/link';
 import styled from 'styled-components';
+import withLanguage from '../components/withLanguage';
 
 export const Content = styled.div`
   grid-template-area: content;
@@ -19,7 +21,7 @@ export const CardText = styled.div`
   cursor: pointer;
 `;
 
-const QuestionList = ({ questions }) =>
+const QuestionList = ({ questions, language }) =>
   questions.map((question, index) => (
     <Card
       category={`${question.category}: ${question.subcategory}`}
@@ -29,10 +31,18 @@ const QuestionList = ({ questions }) =>
         as={`/flashcard/${index + 1}`}
         href={{ pathname: 'flashcard', query: { qid: `${question.id}` } }}
       >
-        <CardText>{question.q_english}</CardText>
+        <CardText>
+          {language === 'english'
+            ? question.q_english
+            : language === 'spanish'
+              ? question.q_spanish
+              : question.q_chinese}
+        </CardText>
       </Link>
     </Card>
   ));
+
+const QuestionsConsumer = withLanguage(QuestionList);
 
 const Questions = () => (
   <Query query={QESTION_QUERY}>
@@ -44,7 +54,7 @@ const Questions = () => (
         <Layout>
           <NavBar />
           <Content>
-            <QuestionList questions={data.questions} />
+            <QuestionsConsumer questions={data.questions} />
           </Content>
         </Layout>
       );
