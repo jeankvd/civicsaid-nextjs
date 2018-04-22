@@ -21,7 +21,7 @@ export const CardText = styled.div`
   cursor: pointer;
 `;
 
-const QuestionList = ({ questions }) =>
+const QuestionList = ({ questions, language }) =>
   questions.map((question, index) => (
     <Card
       category={`${question.category}: ${question.subcategory}`}
@@ -36,26 +36,25 @@ const QuestionList = ({ questions }) =>
     </Card>
   ));
 
-const Questions = ({ language }) => {
-  console.warn(`consumer language: ${language}`);
-  return (
-    <Query query={QESTION_QUERY}>
-      {({ loading, error, data }) => {
-        if (loading) return null;
-        if (error) return `Error!: ${error}`;
+const QuestionsConsumer = withLanguage(QuestionList);
 
-        return (
-          <Layout>
-            <NavBar />
-            <Content>
-              <QuestionList questions={data.questions} />
-            </Content>
-          </Layout>
-        );
-      }}
-    </Query>
-  );
-};
+const Questions = () => (
+  <Query query={QESTION_QUERY}>
+    {({ loading, error, data }) => {
+      if (loading) return null;
+      if (error) return `Error!: ${error}`;
+
+      return (
+        <Layout>
+          <NavBar />
+          <Content>
+            <QuestionsConsumer questions={data.questions} />
+          </Content>
+        </Layout>
+      );
+    }}
+  </Query>
+);
 
 const QESTION_QUERY = gql`
   {
@@ -70,4 +69,4 @@ const QESTION_QUERY = gql`
   }
 `;
 
-export default compose(withData, withLanguage)(Questions);
+export default withData(Questions);

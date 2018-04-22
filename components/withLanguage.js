@@ -5,7 +5,13 @@ export default function withLanguage(BaseComponent) {
   return function LanguageComponent(props) {
     return (
       <Consumer>
-        {language => <BaseComponent {...props} language={language} />}
+        {context => (
+          <BaseComponent
+            {...props}
+            language={context.language}
+            selectLanguage={context.selectLanguage}
+          />
+        )}
       </Consumer>
     );
   };
