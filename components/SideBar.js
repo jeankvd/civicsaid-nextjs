@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import withLanguage from './withLanguage';
+import Link from 'next/link';
 
 const Wrapper = styled.div`
   grid-template-area: sidebar;
@@ -62,13 +63,37 @@ const SideBar = ({ selectLanguage }) => (
       </li>
       <li>
         <SubHeader>Categories</SubHeader>
-        <div className="link">American Government</div>
+        <Link
+          as={`/questions/category/american-government`}
+          href={{
+            pathname: 'category',
+            query: { category: 'AMERICAN GOVERNMENT' },
+          }}
+        >
+          <div className="link">American Government</div>
+        </Link>
       </li>
       <li>
-        <div className="link">American History</div>
+        <Link
+          as={`/questions/category/american-history`}
+          href={{
+            pathname: 'category',
+            query: { category: 'AMERICAN HISTORY' },
+          }}
+        >
+          <div className="link">American History</div>
+        </Link>
       </li>
       <li>
-        <div className="link">Integrated Civics</div>
+        <Link
+          as={`/questions/category/integrated-civics`}
+          href={{
+            pathname: 'category',
+            query: { category: 'INTEGRATED CIVICS' },
+          }}
+        >
+          <div className="link">Integrated Civics</div>
+        </Link>
       </li>
       <li>
         <SubHeader>Language</SubHeader>

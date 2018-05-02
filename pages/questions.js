@@ -42,7 +42,7 @@ const QuestionList = ({ questions, language }) =>
     </Card>
   ));
 
-const QuestionsConsumer = withLanguage(QuestionList);
+export const QuestionsConsumer = withLanguage(QuestionList);
 
 const Questions = () => (
   <Query query={QESTION_QUERY}>
