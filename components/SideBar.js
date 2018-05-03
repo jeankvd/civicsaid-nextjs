@@ -64,7 +64,7 @@ const SideBar = ({ selectLanguage }) => (
       <li>
         <SubHeader>Categories</SubHeader>
         <Link
-          as={`/questions/category/american-government`}
+          as={`/category/AMERICAN GOVERNMENT`}
           href={{
             pathname: 'category',
             query: { category: 'AMERICAN GOVERNMENT' },
@@ -75,7 +75,7 @@ const SideBar = ({ selectLanguage }) => (
       </li>
       <li>
         <Link
-          as={`/questions/category/american-history`}
+          as={`/category/AMERICAN HISTORY`}
           href={{
             pathname: 'category',
             query: { category: 'AMERICAN HISTORY' },
@@ -86,7 +86,7 @@ const SideBar = ({ selectLanguage }) => (
       </li>
       <li>
         <Link
-          as={`/questions/category/integrated-civics`}
+          as={`/category/INTEGRATED CIVICS`}
           href={{
             pathname: 'category',
             query: { category: 'INTEGRATED CIVICS' },
