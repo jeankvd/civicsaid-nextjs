@@ -10,7 +10,7 @@ app
   .then(() => {
     const server = express();
 
-    server.get('/flashcard/:id', (req, res) => {
+    server.get('/flashcard/:qid', (req, res) => {
       const actualPage = '/flashcard';
       const queryParams = { qid: req.params.qid };
       app.render(req, res, actualPage, queryParams);

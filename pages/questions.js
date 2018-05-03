@@ -28,8 +28,7 @@ const QuestionList = ({ questions, language }) =>
       key={question.id}
     >
       <Link
-        as={`/flashcard/${index + 1}`}
-        // href={`/flashcard?qid=${question.id}`}
+        as={`/flashcard/${question.id}`}
         href={{ pathname: 'flashcard', query: { qid: `${question.id}` } }}
       >
         <CardText>
