@@ -22,13 +22,13 @@ export const CardText = styled.div`
 `;
 
 const QuestionList = ({ questions, language }) =>
-  questions.map((question, index) => (
+  questions.map(question => (
     <Card
       category={`${question.category}: ${question.subcategory}`}
       key={question.id}
     >
       <Link
-        as={`/flashcard/${index + 1}`}
+        as={`/flashcard/${question.id}`}
         href={{ pathname: 'flashcard', query: { qid: `${question.id}` } }}
       >
         <CardText>
@@ -42,7 +42,7 @@ const QuestionList = ({ questions, language }) =>
     </Card>
   ));
 
-const QuestionsConsumer = withLanguage(QuestionList);
+export const QuestionsConsumer = withLanguage(QuestionList);
 
 const Questions = () => (
   <Query query={QESTION_QUERY}>
