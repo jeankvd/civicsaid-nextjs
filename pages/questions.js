@@ -22,7 +22,7 @@ export const CardText = styled.div`
 `;
 
 const QuestionList = ({ questions, language }) =>
-  questions.map((question, index) => (
+  questions.map(question => (
     <Card
       category={`${question.category}: ${question.subcategory}`}
       key={question.id}

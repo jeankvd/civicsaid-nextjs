@@ -6,8 +6,6 @@ import { compose } from 'recompose';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
 import Link from 'next/link';
-import styled from 'styled-components';
-import withLanguage from '../components/withLanguage';
 import { Content, CardText, QuestionsConsumer } from './questions';
 
 const Category = ({
@@ -40,6 +38,7 @@ const QESTION_CATEGORY_QUERY = gql`
       q_chinese
       category
       subcategory
+      id
     }
   }
 `;

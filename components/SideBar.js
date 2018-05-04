@@ -59,7 +59,9 @@ const SideBar = ({ selectLanguage }) => (
   <Wrapper>
     <ul>
       <li>
-        <div className="link">All Questions</div>
+        <Link href="/questions">
+          <div className="link">All Questions</div>
+        </Link>
       </li>
       <li>
         <SubHeader>Categories</SubHeader>
