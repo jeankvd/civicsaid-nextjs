@@ -2,7 +2,6 @@ import Layout from '../components/Layout';
 import SideBar from '../components/SideBar';
 import Card from '../components/Card';
 import gql from 'graphql-tag';
-import { compose } from 'recompose';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
 import Link from 'next/link';

@@ -151,9 +151,6 @@ const Header = ({ selected, dropDownSelected, handleMenuClick }) => (
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/about">About</a>
-          </li>
-          <li>
             <a href="/questions">Questions</a>
           </li>
           <li>
