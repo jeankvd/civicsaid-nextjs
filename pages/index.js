@@ -6,6 +6,7 @@ import take from 'lodash/take';
 import shuffle from 'lodash/shuffle';
 import Slider from 'react-slick';
 import withData from '../apollo/withData';
+import { Radio } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const Quiz = styled.div`
@@ -32,21 +33,44 @@ const QuizTitle = styled.div`
 
 const settings = {
   dots: true,
+  infinite: false,
 };
 
 const randomTen = collection => take(shuffle(collection), 10);
 
-const QuizList = ({ questions }) => (
+const QuizList = ({ questions, amountCorrect, handleSelection }) => (
   <Slider {...settings}>
-    {randomTen(questions).map((question, index) => (
+    {randomTen(questions).map(question => (
       <div key={question.id}>
         <h3>{question.q_english}</h3>
+        <HorizontalLine />
+        {question.quiz_answers.map((answer, index) => (
+          <Radio key={answer.id} label={answer.a_english} />
+        ))}
       </div>
     ))}
   </Slider>
 );
 
 class Index extends React.Component {
+  constructor(props) {
+    super();
+    this.state = {
+      amountCorrect: 0,
+      answeredWrong: [],
+    };
+  }
+
+  handleSelection = event => console.log(event.target.value);
+  // {
+
+  //   // if (event.target.value === true) {
+  //   //   this.setState({ amountCorrect: this.state.amountCorrect + 1 });
+  //   // } else {
+  //   //   this.state.answeredWrong.push()
+  //   // }
+  // };
+
   render() {
     return (
       <Query query={QUIZ_QUERY}>
@@ -61,7 +85,11 @@ class Index extends React.Component {
                   <h2>Civics Quiz</h2>
                 </QuizTitle>
                 <HorizontalLine />
-                <QuizList questions={data.quizQuestions} />
+                <QuizList
+                  questions={data.quizQuestions}
+                  amountCorrect={this.state.amountCorrect}
+                  handleSelection={this.handleSelection}
+                />
               </Quiz>
             </div>
           );
