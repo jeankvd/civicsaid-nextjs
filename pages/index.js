@@ -6,6 +6,7 @@ import take from 'lodash/take';
 import shuffle from 'lodash/shuffle';
 import Slider from 'react-slick';
 import withData from '../apollo/withData';
+import RadioGroup from '../components/RadioGroup';
 import { Radio } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -44,9 +45,7 @@ const QuizList = ({ questions, amountCorrect, handleSelection }) => (
       <div key={question.id}>
         <h3>{question.q_english}</h3>
         <HorizontalLine />
-        {question.quiz_answers.map((answer, index) => (
-          <Radio key={answer.id} label={answer.a_english} />
-        ))}
+        <RadioGroup answers={question.quiz_answers} />
       </div>
     ))}
   </Slider>
