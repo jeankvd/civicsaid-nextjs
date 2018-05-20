@@ -28,6 +28,8 @@ const Title = styled.div`
 export default class Quiz extends React.Component {
   constructor(props) {
     super();
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.state = {
       amountCorrect: 0,
       answeredWrong: [],
@@ -106,38 +108,39 @@ const Results = ({
   answeredWrong,
   modalOpen,
   handleClose,
-}) => {
-  return (
-    <div>
-      <h3>Results</h3>
-      {amountCorrect >= 6 && <p>🎉 Passed 🎉</p>}
-      {amountCorrect < 6 && <p>❌ Failed ❌</p>}
-      <p>
-        The naturalization exam requires you get at least 6 out of 10 correct.
-        But remember, <strong>the exam is not multiple choice.</strong>
-      </p>
-      <p>You answered {amountCorrect} out of 10 correct.</p>
-      {amountCorrect < 10 &&
-        totalAnswered === 10 && (
-          <Modal open={modalOpen} onClose={handleClose} basic size="small">
-            <Header icon="browser" content="Cookies policy" />
-            <Modal.Content>
-              <h3>Questions you missed:</h3>
-              <ul>
-                {answeredWrong.map(question => (
-                  <li>
-                    <p>{question}</p>
-                  </li>
-                ))}
-              </ul>
-            </Modal.Content>
-            <Modal.Actions>
-              <Button color="green" onClick={this.handleClose} inverted>
-                <Icon name="checkmark" /> Got it
-              </Button>
-            </Modal.Actions>
-          </Modal>
-        )}
-    </div>
-  );
-};
+  handleOpen,
+}) => (
+  <React.Fragment>
+    <h3>Results</h3>
+    {amountCorrect >= 6 && <h4>🎉 Passed</h4>}
+    {amountCorrect < 6 && <h4>❌ Failed</h4>}
+    <p>
+      The naturalization exam requires you get at least 6 out of 10 correct. But
+      remember, <strong>the exam is not multiple choice.</strong>
+    </p>
+    {amountCorrect < 10 && (
+      <Button onClick={handleOpen}>
+        <Icon name="list ul" /> View Results
+      </Button>
+    )}
+    <Modal open={modalOpen} onClose={handleClose} basic size="small">
+      <Header icon="pointing right" content="Results" />
+      <Modal.Content>
+        <h2>Score: {amountCorrect}0%</h2>
+        <h3>Questions you missed:</h3>
+        <ul>
+          {answeredWrong.map(question => (
+            <li key={question}>
+              <p>{question}</p>
+            </li>
+          ))}
+        </ul>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button color="green" onClick={handleClose} inverted>
+          <Icon name="checkmark" /> Got it
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  </React.Fragment>
+);
