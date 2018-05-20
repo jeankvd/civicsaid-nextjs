@@ -123,6 +123,9 @@ const Results = ({
         <Icon name="list ul" /> View Results
       </Button>
     )}
+    <Button onClick={() => window.location.reload()}>
+      <Icon name="refresh" /> Restart Quiz
+    </Button>
     <Modal open={modalOpen} onClose={handleClose} basic size="small">
       <Header icon="pointing right" content="Results" />
       <Modal.Content>

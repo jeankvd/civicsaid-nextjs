@@ -27,7 +27,6 @@ export default class RadioGroup extends React.Component {
               value={answer}
               checked={this.state.value === answer.id}
               onChange={this.handleChange}
-              // disabled
             />
           </Form.Field>
         ))}
