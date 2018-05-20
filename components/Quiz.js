@@ -1,9 +1,9 @@
 import Slider from 'react-slick';
 import RadioGroup from './RadioGroup';
-import { Radio } from 'semantic-ui-react';
+import { Radio, Button, Header, Icon, Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-const QuizContainer = styled.div`
+const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 1.5em;
@@ -19,7 +19,7 @@ const HorizontalLine = styled.hr`
   width: 95%;
 `;
 
-const QuizTitle = styled.div`
+const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,45 +31,113 @@ export default class Quiz extends React.Component {
     this.state = {
       amountCorrect: 0,
       answeredWrong: [],
-      restartQuiz: false,
+      totalAnswered: 0,
+      modalOpen: false,
     };
   }
+
+  handleOpen = () => this.setState({ modalOpen: true });
+
+  handleClose = () => this.setState({ modalOpen: false });
 
   handleSelection = (is_correct, answer) => {
     if (is_correct) {
       this.setState({ amountCorrect: this.state.amountCorrect + 1 });
+      this.setState({ totalAnswered: this.state.totalAnswered + 1 });
     } else {
       this.setState(prevState => ({
         answeredWrong: [...prevState.answeredWrong, answer],
       }));
+      this.setState({ totalAnswered: this.state.totalAnswered + 1 });
     }
   };
 
   render() {
     const { questions } = this.props;
+    const {
+      totalAnswered,
+      amountCorrect,
+      answeredWrong,
+      modalOpen,
+    } = this.state;
     const settings = {
       dots: true,
       infinite: false,
     };
     return (
-      <QuizContainer>
-        <QuizTitle>
-          <h2>Civics Quiz</h2>
-        </QuizTitle>
-        <HorizontalLine />
-        <Slider {...settings}>
-          {questions.map(question => (
-            <div key={question.id}>
-              <h3>{question.q_english}</h3>
-              <HorizontalLine />
-              <RadioGroup
-                answers={question.quiz_answers}
-                handleSelection={this.handleSelection}
+      <React.Fragment>
+        <Container>
+          <Title>
+            <h2>Civics Quiz</h2>
+          </Title>
+          <HorizontalLine />
+          <Slider {...settings}>
+            {questions.map(question => (
+              <div key={question.id}>
+                <h3>{question.q_english}</h3>
+                <HorizontalLine />
+                <RadioGroup
+                  answers={question.quiz_answers}
+                  handleSelection={this.handleSelection}
+                  question={question.q_english}
+                />
+              </div>
+            ))}
+            {totalAnswered === 10 && (
+              <Results
+                totalAnswered={totalAnswered}
+                amountCorrect={amountCorrect}
+                answeredWrong={answeredWrong}
+                modalOpen={modalOpen}
+                handleClose={this.handleClose}
+                handleOpen={this.handleOpen}
               />
-            </div>
-          ))}
-        </Slider>
-      </QuizContainer>
+            )}
+          </Slider>
+        </Container>
+      </React.Fragment>
     );
   }
 }
+
+const Results = ({
+  totalAnswered,
+  amountCorrect,
+  answeredWrong,
+  modalOpen,
+  handleClose,
+}) => {
+  return (
+    <div>
+      <h3>Results</h3>
+      {amountCorrect >= 6 && <p>🎉 Passed 🎉</p>}
+      {amountCorrect < 6 && <p>❌ Failed ❌</p>}
+      <p>
+        The naturalization exam requires you get at least 6 out of 10 correct.
+        But remember, <strong>the exam is not multiple choice.</strong>
+      </p>
+      <p>You answered {amountCorrect} out of 10 correct.</p>
+      {amountCorrect < 10 &&
+        totalAnswered === 10 && (
+          <Modal open={modalOpen} onClose={handleClose} basic size="small">
+            <Header icon="browser" content="Cookies policy" />
+            <Modal.Content>
+              <h3>Questions you missed:</h3>
+              <ul>
+                {answeredWrong.map(question => (
+                  <li>
+                    <p>{question}</p>
+                  </li>
+                ))}
+              </ul>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button color="green" onClick={this.handleClose} inverted>
+                <Icon name="checkmark" /> Got it
+              </Button>
+            </Modal.Actions>
+          </Modal>
+        )}
+    </div>
+  );
+};

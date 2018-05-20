@@ -7,11 +7,12 @@ export default class RadioGroup extends React.Component {
   }
 
   handleChange = (e, { value }) => {
+    const { handleSelection, question } = this.props;
     if (this.state.value) {
       return;
     } else {
       this.setState({ value: value.id });
-      this.props.handleSelection(value.is_correct, value.a_english);
+      handleSelection(value.is_correct, question);
     }
   };
 
