@@ -2,14 +2,75 @@ import Layout from '../components/Layout';
 import withData from '../apollo/withData';
 import { graphql, Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import Card from '../components/Card';
+
+const VocabCard = ({ category, word }) => (
+  <Card category={category}>
+    <h3>{word}</h3>
+  </Card>
+);
 
 const Vocabulary = () => (
   <Query query={VOCABULARY_QUERY}>
     {({ loading, error, data }) => {
       if (loading) return null;
       if (error) return `Error!: ${error}`;
-      console.warn(`data -> ${JSON.stringify(data, null, 2)}`);
-      return <Layout>hello friend</Layout>;
+      const {
+        vocabularyPeoples,
+        vocabularyPlaceses,
+        vocabularyVerbses,
+        vocabularyHolidayses,
+        vocabularyCivicses,
+        vocabularyQuestionWordses,
+        vocabularyOtherContents,
+        vocabularyOtherFunctions,
+      } = data;
+      return (
+        <Layout>
+          <div>
+            {vocabularyPeoples.map(data => (
+              <VocabCard key={data.id} category="People" word={data.people} />
+            ))}
+            {vocabularyPlaceses.map(data => (
+              <VocabCard key={data.id} category="Places" word={data.place} />
+            ))}
+            {vocabularyVerbses.map(data => (
+              <VocabCard key={data.id} category="Verbs" word={data.verb} />
+            ))}
+            {vocabularyHolidayses.map(data => (
+              <VocabCard
+                key={data.id}
+                category="Holidays"
+                word={data.holiday}
+              />
+            ))}
+            {vocabularyCivicses.map(data => (
+              <VocabCard key={data.id} category="Civics" word={data.civic} />
+            ))}
+            {vocabularyQuestionWordses.map(data => (
+              <VocabCard
+                key={data.id}
+                category="Question Words"
+                word={data.question_word}
+              />
+            ))}
+            {vocabularyOtherContents.map(data => (
+              <VocabCard
+                key={data.id}
+                category="Question Words"
+                word={data.other_content}
+              />
+            ))}
+            {vocabularyOtherFunctions.map(data => (
+              <VocabCard
+                key={data.id}
+                category="Question Words"
+                word={data.other_function}
+              />
+            ))}
+          </div>
+        </Layout>
+      );
     }}
   </Query>
 );
