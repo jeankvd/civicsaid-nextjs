@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Wrapper = styled.div`
   grid-template-area: sidebar;
-  background-color: #464655;
+  background-color: #1d2d3f;
   transition: all 0.3s ease-in;
   margin-top: 0.5em;
   width: 15em;
@@ -27,12 +27,13 @@ const Wrapper = styled.div`
     padding: 2em 1.5em 2em 1.5em;
     text-transform: uppercase;
     cursor: pointer;
+    font-size: 1.2em;
   }
 
   .link:hover,
   .link:focus {
     background: #e4b363;
-    color: #464655;
+    color: #1d2d3f;
   }
 
   .language-link:hover,
@@ -49,7 +50,7 @@ const Wrapper = styled.div`
 
 const SubHeader = styled.div`
   color: #f1582fe6;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: heavy;
   padding: 0.5em 1em 0.5em 1em;
   border-bottom: 1px solid #575766;

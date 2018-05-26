@@ -14,7 +14,7 @@ export const Content = styled.div`
 
 export const CardText = styled.div`
   color: #2f94f1;
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: heavy;
   padding: 40px 15px 40px;
   cursor: pointer;

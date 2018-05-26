@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const Category = styled.div`
-  background-color: #464655;
+  background-color: #243a56;
   color: #f1582fe6;
   font-size: 1.2em;
   font-weight: heavy;

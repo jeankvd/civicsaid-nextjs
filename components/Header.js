@@ -63,6 +63,7 @@ const SiteNav = styled.nav`
     padding: 2em 4em 2em 1.5em;
     text-transform: uppercase;
     text-decoration: none;
+    font-size: 1.2em;
   }
 
   a:hover,
