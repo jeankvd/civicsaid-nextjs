@@ -65,71 +65,168 @@ const CardContent = styled.div`
   font-weight: heavy;
 `;
 
-const Vocabulary = () => (
-  <Query query={VOCABULARY_QUERY}>
-    {({ loading, error, data }) => {
-      if (loading) return null;
-      if (error) return `Error!: ${error}`;
-      const {
-        vocabularyPeoples,
-        vocabularyPlaceses,
-        vocabularyVerbses,
-        vocabularyHolidayses,
-        vocabularyCivicses,
-        vocabularyQuestionWordses,
-        vocabularyOtherContents,
-        vocabularyOtherFunctions,
-      } = data;
-      return (
-        <div>
-          <Header />
-          <GridContent>
-            {vocabularyPeoples.map(data => (
-              <VocabCard key={data.id} category="People" word={data.people} />
-            ))}
-            {vocabularyPlaceses.map(data => (
-              <VocabCard key={data.id} category="Places" word={data.place} />
-            ))}
-            {vocabularyVerbses.map(data => (
-              <VocabCard key={data.id} category="Verbs" word={data.verb} />
-            ))}
-            {vocabularyHolidayses.map(data => (
-              <VocabCard
-                key={data.id}
-                category="Holidays"
-                word={data.holiday}
-              />
-            ))}
-            {vocabularyCivicses.map(data => (
-              <VocabCard key={data.id} category="Civics" word={data.civic} />
-            ))}
-            {vocabularyQuestionWordses.map(data => (
-              <VocabCard
-                key={data.id}
-                category="Question Words"
-                word={data.question_word}
-              />
-            ))}
-            {vocabularyOtherContents.map(data => (
-              <VocabCard
-                key={data.id}
-                category="Other Content"
-                word={data.other_content}
-              />
-            ))}
-            {vocabularyOtherFunctions.map(data => (
-              <VocabCard
-                key={data.id}
-                category="Other Function"
-                word={data.other_function}
-              />
-            ))}
-          </GridContent>
-        </div>
-      );
-    }}
-  </Query>
-);
+const Banner = styled.div`
+  background-color: #243a56;
+  color: #fff;
+  padding-top: 55px;
+  padding-bottom: 55px;
+`;
+
+const BannerList = styled.ul`
+  list-style-type: none;
+
+  li {
+    display: inline-block;
+    font-size: 20px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  li:hover {
+    color: #2f94f1;
+    cursor: pointer;
+  }
+`;
+
+const BannerContent = styled.p`
+  font-size: 18px;
+  margin-left: 20px;
+  color: #acb7ce;
+`;
+
+class Vocabulary extends React.Component {
+  state = {
+    filtered: 'All Items',
+  };
+
+  handleClick = value => {
+    this.setState({ filtered: value });
+  };
+
+  handleFiltered = value => {
+    const { filtered } = this.state;
+    if (filtered === 'All Items' || filtered === `${value}`) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  render() {
+    const vocabList = [
+      'All Items',
+      'People',
+      'Places',
+      'Verbs',
+      'Civics',
+      'Holidays',
+      'Question Words',
+      'Other Content',
+      'Other Function',
+    ];
+    const { filtered } = this.state;
+    return (
+      <Query query={VOCABULARY_QUERY}>
+        {({ loading, error, data }) => {
+          if (loading) return null;
+          if (error) return `Error!: ${error}`;
+          const {
+            vocabularyPeoples,
+            vocabularyPlaceses,
+            vocabularyVerbses,
+            vocabularyHolidayses,
+            vocabularyCivicses,
+            vocabularyQuestionWordses,
+            vocabularyOtherContents,
+            vocabularyOtherFunctions,
+          } = data;
+          return (
+            <React.Fragment>
+              <Header />
+              <Banner>
+                <h1 style={{ 'margin-left': '20px' }}>Vocabulary List</h1>
+                <BannerList>
+                  {vocabList.map(item => (
+                    <li onClick={() => this.handleClick(`${item}`)}>{item}</li>
+                  ))}
+                </BannerList>
+                <BannerContent>
+                  <em>Descriptions and examples avaible for each item</em>
+                </BannerContent>
+              </Banner>
+              <GridContent>
+                {this.handleFiltered('People') &&
+                  vocabularyPeoples.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="People"
+                      word={data.people}
+                    />
+                  ))}
+                {this.handleFiltered('Places') &&
+                  vocabularyPlaceses.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Places"
+                      word={data.place}
+                    />
+                  ))}
+                {this.handleFiltered('Verbs') &&
+                  vocabularyVerbses.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Verbs"
+                      word={data.verb}
+                    />
+                  ))}
+                {this.handleFiltered('Holidays') &&
+                  vocabularyHolidayses.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Holidays"
+                      word={data.holiday}
+                    />
+                  ))}
+                {this.handleFiltered('Civics') &&
+                  vocabularyCivicses.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Civics"
+                      word={data.civic}
+                    />
+                  ))}
+                {this.handleFiltered('Question Words') &&
+                  vocabularyQuestionWordses.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Question Words"
+                      word={data.question_word}
+                    />
+                  ))}
+                {this.handleFiltered('Other Content') &&
+                  vocabularyOtherContents.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Other Content"
+                      word={data.other_content}
+                    />
+                  ))}
+                {this.handleFiltered('Other Function') &&
+                  vocabularyOtherFunctions.map(data => (
+                    <VocabCard
+                      key={data.id}
+                      category="Other Function"
+                      word={data.other_function}
+                    />
+                  ))}
+              </GridContent>
+            </React.Fragment>
+          );
+        }}
+      </Query>
+    );
+  }
+}
 
 const VOCABULARY_QUERY = gql`
   {
