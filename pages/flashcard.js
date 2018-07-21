@@ -1,47 +1,10 @@
 import Layout from '../components/Layout';
 import SideBar from '../components/SideBar';
-import Card from '../components/Card';
 import { Content, CardText } from './questions';
 import gql from 'graphql-tag';
 import { graphql, Query } from 'react-apollo';
 import withData from '../apollo/withData';
-import withLanguage from '../components/withLanguage';
-import Link from 'next/link';
-import styled from 'styled-components';
-
-const QuestionCard = ({ question, language }) => (
-  <Card category={`${question.category}: ${question.subcategory}`}>
-    <CardText>
-      {language === 'english'
-        ? question.q_english
-        : language === 'spanish'
-          ? question.q_spanish
-          : question.q_chinese}
-    </CardText>
-  </Card>
-);
-
-const QuestionConsumer = withLanguage(QuestionCard);
-
-const AnswerCard = ({ answers, category, subcategory, language }) => (
-  <Card category={`${category}: ${subcategory}`}>
-    <CardText>
-      {answers.map((answer, i) => (
-        <div key={i}>
-          <li>
-            {language === 'english'
-              ? answer.a_english
-              : language === 'spanish'
-                ? answer.a_spanish
-                : answer.a_chinese}
-          </li>
-        </div>
-      ))}
-    </CardText>
-  </Card>
-);
-
-const AnswerConsumer = withLanguage(AnswerCard);
+import QuestionAnswerCard from '../components/QuestionAnswerCard';
 
 const FlashCard = ({
   url: {
@@ -56,12 +19,7 @@ const FlashCard = ({
         <Layout>
           <SideBar />
           <Content>
-            <QuestionConsumer question={question} />
-            <AnswerConsumer
-              answers={question.answers}
-              category={question.category}
-              subcategory={question.subcategory}
-            />
+            <QuestionAnswerCard question={question}/>
           </Content>
         </Layout>
       );
