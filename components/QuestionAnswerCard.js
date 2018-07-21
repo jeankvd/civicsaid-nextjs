@@ -12,7 +12,6 @@ const UnrotatedCard = styled.div`
 `
 
 const RotatedCard = styled.div`
-  border: solid 5px  ${props => props.correct ? 'green' : 'red'};
   z-index: 100;
   transform: rotateX(180deg);
   backface-visibility: hidden;
@@ -91,7 +90,7 @@ constructor(props) {
     super(props);
     this.state = {
     flipped: false,
-    correct: false
+    correct: null
     }
 }
 
@@ -132,9 +131,8 @@ render() {
                 subcategory={this.props.question.subcategory}
             />
         </RotatedCard>
-        
         </FlipCard>
-    
+        <h1>{this.state.correct ? "Your Answer is Correct!" : "Your Answer is Incorrect :("}</h1>
     </div>
     )
 }
